@@ -1,38 +1,29 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    19:03:22 12/15/2013 
-// Design Name: 
-// Module Name:    mar 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
+////////////////////////////////////
+//Zachary Karpinski
+//Karpentium Processor
 //
-// Dependencies: 
+//memory_address_register.v
 //
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
+//A load/store register for memory address's with the control table
 //
-//////////////////////////////////////////////////////////////////////////////////
-module memory_address_register(clk,addrBUS,en,ls);
-	input clk,en,ls;
-	inout [5:0]addrBUS;
-	reg [5:0]AR;
+//		ls		function
+//		0		store
+//		1		load
+//
+////////////////////////////////////
+module memory_address_register(clk,in,out,ls);
+	input clk,ls;
+	input [5:0]in;
+	output reg [5:0]out;
 	
-	initial begin AR = 6'd15; end
+	initial begin out = 6'bZZZZZZ; end
 	
 	always @(posedge clk)
 	begin
 		if(ls) begin
-			//Store the address from address bus
-			AR = addrBUS;
+			//Store the address from input mux
+			out <= in;
 		end
 	end
-	
-	assign addrBUS = (en) ? AR : 6'bZZZZZZ;
-
 endmodule

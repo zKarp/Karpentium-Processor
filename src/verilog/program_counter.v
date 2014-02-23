@@ -1,43 +1,41 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    19:03:00 12/15/2013 
-// Design Name: 
-// Module Name:    program_counter 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
+////////////////////////////////////
+//Zachary Karpinski
+//Karpentium Processor
 //
-// Dependencies: 
+//program_counter.v
 //
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
+//A program counter with the control table
 //
-//////////////////////////////////////////////////////////////////////////////////
-module program_counter(clk,out,incr,clr,enable);
-	input clk,incr,clr,enable;
-	output [5:0]out;
-	reg [5:0]count;
+//		clr		ctrl	function
+//		1		d		clears the register to 0
+//		0		00		store
+//		0		01		increment by 1
+//		0		10		load input
+//		0		11		**ADD LATER OPTION**
+//
+////////////////////////////////////
+module program_counter(clk,in,out,ctrl,clr);
+	input clk,clr;		//clock,clear
+	input [1:0] ctrl;	//Control Line
+	input [5:0] in;	//Input data
+	output reg [5:0]out;	//PC out
 	
 	initial begin
-		count = 0;
+		out <= 0;
 	end
 	
 	always @(posedge clk)
 	begin
-		if(clr) count = 0;
-		else if(incr) begin
-			count = (count + 1'b1);
-		end
+		if(clr)
+			out <= 0;
 		else begin
-			//Do Nothing
+			case(ctrl)
+			0 : out <= out; //Store
+			1 : out <= (out + 1); //Increment by one
+			2 : out <= in; //Load new count
+			default: out <= out;
+			endcase
 		end
 	end
-	
-	assign out[5:0] = (enable) ? count[5:0] : 6'bZZZZZZ;
-
 endmodule

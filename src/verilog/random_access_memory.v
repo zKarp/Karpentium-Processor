@@ -1,15 +1,29 @@
 `timescale 1ns / 1ps
+////////////////////////////////////
+//Zachary Karpinski
+//Karpentium Processor
+//
+//program_memory.v
+//
+//A parameterized ROM, preloaded with programs
+//
+//		rw		enable		function
+//		d		0			nothing			
+//		0		1			MDR <- Memory
+//		1		1			Memory <- MDR
+//
+// s_addr: The address size
+// s_word: The data word size
+//
+////////////////////////////////////
 
-module random_access_memory#(parameter n=1, parameter m=1)(clk,address,data_out,enable,clr);
-	//parameter n = 4; //Address Size
-	//parameter m = 16; //Data Size
+module random_access_memory#(parameter n=1, parameter m=1)(clk,address,MDR_line,enable,clr,rw);
 	parameter L = (2**n);
 	integer i;
-	input clk, enable,clr;
+	input clk, enable,clr,rw;
 	input [n-1:0]address; //nBit Memory Addr. Register
-	//input [m-1:0]data_in; //mBit IN Data
-	output [m-1:0]data_out; //mBit OUT Data
-	reg [m-1:0]pdra [L-1:0]; //L x mBit Program Data Register Array
+	inout [m-1:0]MDR_line; //mBit In/Out line with MDR
+	reg [m-1:0]MEM [L-1:0]; //L x mBit Data Register Array
 	
 	initial begin
 		//$readmemb("program.bin",pdra); //Load program into Program Data Register
@@ -17,17 +31,24 @@ module random_access_memory#(parameter n=1, parameter m=1)(clk,address,data_out,
 	
 	always @(posedge clk)
 	begin
-		//Clear the whole memory
 		if (clr == 1) begin
-			for(i=0;i<16;i=i+1) begin
-				pdra[i] = 0;
+			//Clear the whole memory
+			for(i=0;i<L;i=i+1) begin
+				MEM[i] <= 0;
 			end
 		end
-		else if (enable == 1) begin
-				//Output specified MDR to data out
-				//data_out <= pdr[addr];
+		else if(enable && rw) begin
+			//Write from MDR to memory
+			MEM[address] <= MDR_line;
 		end
+		else if(enable && ~rw) begin
+			//Feed memory to MDR
+		end
+		else begin
+			//Do what
+		end		
 	end
 	
-	assign data_out = enable ? pdra[address] : 16'hZZ;
+	//Output contents of MEM[address] to MDR
+	assign MDR_line = (enable && ~rw) ? MEM[address] : 16'hZZ;
 endmodule
