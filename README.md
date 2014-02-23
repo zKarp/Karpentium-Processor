@@ -20,9 +20,9 @@ Coming Soon...
 
 ## Technologies and resources used
 
-* [Migen](https://github.com/m-labs/migen) ��Library used for the Python3 implementation.
-* [GTKwave](http://gtkwave.sourceforge.net/) ��Opensorce Waveform viewer.
-* [Xilinx](http://www.xilinx.com/) ��The intial design, verification, implementation and testing platform.
+* [Migen](https://github.com/m-labs/migen) - Library used for the Python3 implementation.
+* [GTKwave](http://gtkwave.sourceforge.net/) - Opensorce Waveform viewer.
+* [Xilinx](http://www.xilinx.com/) - The intial design, verification, implementation and testing platform.
 
 
 ## FAQ
