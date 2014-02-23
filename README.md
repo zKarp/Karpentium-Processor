@@ -1,4 +1,4 @@
-Karpentium-Procesor
+Karpentium-Processor
 ===================
 __An accumulator based 16 bit three stage parallel processor (work in progress).__
 
@@ -20,9 +20,9 @@ Coming Soon...
 
 ## Technologies and resources used
 
-* [Migen](https://github.com/m-labs/migen) – Library used for the Python3 implementation.
-* [GTKwave](http://gtkwave.sourceforge.net/) – Opensorce Waveform viewer.
-* [Xilinx](http://www.xilinx.com/) – The intial design, verification, implementation and testing platform.
+* [Migen](https://github.com/m-labs/migen) ï¿½ï¿½Library used for the Python3 implementation.
+* [GTKwave](http://gtkwave.sourceforge.net/) ï¿½ï¿½Opensorce Waveform viewer.
+* [Xilinx](http://www.xilinx.com/) ï¿½ï¿½The intial design, verification, implementation and testing platform.
 
 
 ## FAQ
